@@ -1,7 +1,7 @@
-import { act, fireEvent, render } from "@testing-library/react";
+import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import Form from "./Form";
 
-it('should work please :-)', () => {
+it('should work please :-)', async () => {
     const mockOnSubmit = jest.fn();
     const { getByRole, getByPlaceholderText } = render(<Form onSubmit={mockOnSubmit} />);
     act(() => {
@@ -10,5 +10,5 @@ it('should work please :-)', () => {
         fireEvent.input(getByRole('spinbutton'), { target: { value: 23 } });
         fireEvent.submit(getByRole('button'));
     })
-    expect(mockOnSubmit).toBeCalled();
+    await waitFor(() => expect(mockOnSubmit).toBeCalled())
 })
